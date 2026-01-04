@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0f1014;
+  --panel: #1b1c22;
+  --border: #2e303a;
+  --accent: #007bff;
+  --accent-glow: rgba(0, 123, 255, 0.4);
+  --text: #e0e0e0;
+  --danger: #ff4d4d;
+  --success: #00d48a;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--panel);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.logo { display: flex; gap: 10px; align-items: center; }
+.logo h1 { margin: 0; font-size: 1.4rem; background: linear-gradient(90deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.navbar p { margin: 0; font-size: 0.9rem; color: #666; font-weight: 500; }
+
+/* Main Layout */
+.main-content {
+  display: flex;
+  flex: 1;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.panel {
+  flex: 1;
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel h2 { margin: 0; font-size: 1.1rem; color: #fff; }
+.badge { background: #333; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #aaa; font-family: 'JetBrains Mono', monospace; }
+
+/* Text Area */
+.input-panel textarea {
+  flex: 1;
+  background-color: #131419;
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 1.2rem;
+  border-radius: 12px;
+  resize: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-panel textarea:focus { border-color: var(--accent); }
+
+/* Buttons */
+.scan-btn {
+  margin-top: 1.2rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.scan-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
+.scan-btn:active:not(:disabled) { transform: translateY(0); }
+.scan-btn:disabled { background: #333; cursor: not-allowed; box-shadow: none; color: #777; }
+
+/* Results */
+.result-panel { overflow-y: auto; }
+
+.placeholder { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #444; gap: 1rem; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Cards */
+.card {
+  background-color: #22232a;
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.card h3 { margin-top: 0; display: flex; gap: 10px; align-items: center; font-size: 1rem; }
+.risk-card { border-left: 4px solid var(--danger); }
+.risk-card h3 { color: var(--danger); }
+.fix-card { border-left: 4px solid var(--success); }
+.fix-card h3 { color: var(--success); }
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+
+.copy-btn {
+  background: #333;
+  border: none;
+  color: #aaa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover { background: #444; color: #fff; }
+
+/* Animations */
+.fade-in { animation: fadeIn 0.5s ease-in; }
+.slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }

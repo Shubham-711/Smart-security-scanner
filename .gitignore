@@ -1,0 +1,15 @@
+# Ignore Mac/Windows system files
+.DS_Store
+Thumbs.db
+
+# Ignore Python Junk
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Ignore Node/React Junk
+node_modules/
+dist/
+build/
+.npm
