@@ -89,6 +89,7 @@ const DiffResult = ({ oldCode, newCode }) => {
           renderContent={(str) => <pre style={{ margin: 0 }}>{str}</pre>}
           useDarkTheme={true}
           styles={newStyles}
+          disableWordDiff={true}
           leftTitle="🔴 Current Code"
           rightTitle="🟢 Secured Code"
         />
