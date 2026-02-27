@@ -30,7 +30,7 @@ const LogoSVGs = {
     ),
     JavaScript: (
         <svg viewBox="0 0 256 256" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
-            <rect width="256" height="256" rx="20" fill="#F7DF1E"/>
+            <rect width="256" height="256" rx="20" fill="#F7DF1E" />
             <text x="28" y="210" fontFamily="Arial Black, Arial, sans-serif" fontSize="128" fontWeight="900" fill="#323230">JS</text>
         </svg>
     ),
@@ -77,7 +77,7 @@ const features = [
     {
         icon: <Lock size={18} />,
         title: "Multi-Language",
-        desc: "Python via Bandit, Java via OWASP regex — with more languages on the roadmap.",
+        desc: "Python via Bandit, Java via OWASP regex with more languages on the roadmap.",
     },
     {
         icon: <Eye size={18} />,
@@ -155,7 +155,7 @@ export default function LandingPage() {
                     </h1>
                     <p className="land-sub">
                         AI-powered static analysis that finds bugs, generates verified fixes,
-                        and explains every change — in seconds.
+                        and explains every change in seconds.
                     </p>
 
                     <div className="land-cta-row">
