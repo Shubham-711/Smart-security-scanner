@@ -241,10 +241,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ---
 
-<div align="center">
-
-**Built with ❤️ by [Shubham Kumavat](https://github.com/Shubham-711)**
-
-*Powered by Llama 3.3 70B & FastAPI*
-
-</div>
