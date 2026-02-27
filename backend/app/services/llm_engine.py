@@ -7,39 +7,16 @@ client = Groq(
     api_key=os.environ.get("GROQ_API_KEY"),
 )
 
-def analyze_with_ai(code: str, bandit_results):
+def analyze_with_ai(code: str, scan_results, system_prompt: str):
     """
-    Sends code to Llama 3 (via Groq) to find vulnerabilities and generate a fix.
+    Sends code and logic to Llama 3 (via Groq) to find vulnerabilities and generate a fix.
+    Requires Language-Specific system_prompt injection.
     """
-    system_prompt = """
-    You are an elite Security Engineer and Python Expert.
-    
-    You will receive a snippet of vulnerable Python code and a security scan report.
-    Your goal is to:
-    1. Identify the specific security vulnerability.
-    2. Write a SECURE version of the code that fixes the issue.
-    3. Explain your fix clearly.
-
-    CRITICAL JSON RULES:
-    - You must output valid JSON only.
-    - The "fixed_code" field must be a SINGLE string containing the entire corrected Python script.
-    - You MUST escape all double quotes (") inside the Python code with a backslash (\").
-    - You MUST escape all newlines in the Python code as \\n.
-    - Do NOT wrap the output in markdown (```json). Just return the raw JSON object.
-
-    OUTPUT FORMAT:
-    {
-        "risk_analysis": "Brief explanation of the attack vector (Max 2 sentences).",
-        "fixed_code": "The complete, fixed Python code string (properly escaped).",
-        "explanation": "Why the new code is secure."
-    }
-    """
-
-    # Safely format the bandit results for the prompt
-    if isinstance(bandit_results, (dict, list)):
-        scan_report = json.dumps(bandit_results, indent=2)
+    # Safely format the scan results for the prompt
+    if isinstance(scan_results, (dict, list)):
+        scan_report = json.dumps(scan_results, indent=2)
     else:
-        scan_report = str(bandit_results)
+        scan_report = str(scan_results)
 
     user_message = f"""
     Here is the vulnerable code:

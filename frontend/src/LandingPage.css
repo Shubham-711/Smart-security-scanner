@@ -1,0 +1,433 @@
+/* ═══════════════════════════════════════════
+   LANDING PAGE — Attio-inspired aesthetic
+   Background: #0d0d0d  Accent: #4B6EF5
+   ═══════════════════════════════════════════ */
+
+/* ── Root page ── */
+.landing {
+    position: relative;
+    min-height: 100vh;
+    background: #0d0d0d;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════
+   GEOMETRIC BACKGROUND SHAPES
+   ══════════════════════════════════════ */
+.geo-shapes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Large circle top-right (like Attio) */
+.geo-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.geo-circle-1 {
+    width: 560px;
+    height: 560px;
+    top: -160px;
+    right: -180px;
+    background: radial-gradient(circle, rgba(75, 110, 245, 0.04) 0%, transparent 70%);
+    border-color: rgba(75, 110, 245, 0.08);
+}
+
+.geo-circle-2 {
+    width: 380px;
+    height: 380px;
+    bottom: 5%;
+    left: -100px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.03) 0%, transparent 70%);
+    border-color: rgba(34, 197, 94, 0.06);
+}
+
+/* Rectangles / panels (like Attio right side) */
+.geo-rect {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+}
+
+.geo-rect-1 {
+    width: 340px;
+    height: 280px;
+    top: 30%;
+    right: -40px;
+    background: rgba(255, 255, 255, 0.015);
+    transform: rotate(8deg);
+}
+
+.geo-rect-2 {
+    width: 220px;
+    height: 160px;
+    bottom: 20%;
+    right: 80px;
+    background: rgba(75, 110, 245, 0.03);
+    border-color: rgba(75, 110, 245, 0.07);
+    transform: rotate(-5deg);
+}
+
+/* Ring accent */
+.geo-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 80px solid rgba(255, 255, 255, 0.015);
+}
+
+.geo-ring-1 {
+    width: 600px;
+    height: 600px;
+    top: 60%;
+    left: -160px;
+}
+
+/* ══════════════════════════════════════
+   FLOATING LANGUAGE LOGO BADGES
+   ══════════════════════════════════════ */
+.float-logo {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 18, 18, 0.80);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.float-logo svg {
+    display: block;
+}
+
+.float-logo-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: rgba(255, 255, 255, 0.38);
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* ══════════════════════════════════════
+   FLOATING GLASSMORPHISM NAVBAR
+   ══════════════════════════════════════ */
+.land-nav {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1000px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 52px;
+    background: rgba(13, 13, 13, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+}
+
+.land-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.land-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.land-brand {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: #fff;
+}
+
+.land-nav-center {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+}
+
+.land-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.land-link {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13.5px;
+    font-weight: 450;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: color 0.15s, background 0.15s;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: -0.1px;
+}
+
+.land-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Navbar CTA — Electric Blue */
+.land-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 8px;
+    background: #4B6EF5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    letter-spacing: -0.1px;
+    transition: background 0.15s;
+}
+
+.land-nav-cta:hover {
+    background: #3B5CE5;
+}
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.land-hero {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 180px 40px 100px;
+}
+
+.land-hero-content {
+    max-width: 720px;
+}
+
+.land-headline {
+    font-size: clamp(44px, 6.5vw, 76px);
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1.04;
+    color: #fff;
+    margin: 0 0 22px;
+}
+
+.land-headline-plain {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.land-sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.45);
+    max-width: 500px;
+    margin: 0 auto 38px;
+    letter-spacing: -0.1px;
+}
+
+/* ── CTA Row ── */
+.land-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Primary CTA — Attio electric blue */
+.land-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    background: #4B6EF5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    letter-spacing: -0.2px;
+    transition: background 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 24px rgba(75, 110, 245, 0.35);
+}
+
+.land-cta-primary:hover {
+    background: #3B5CE5;
+    box-shadow: 0 0 36px rgba(75, 110, 245, 0.55);
+}
+
+/* Ghost CTA */
+.land-cta-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: 10px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: -0.1px;
+}
+
+.land-cta-ghost:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ══════════════════════════════════════
+   FEATURE CARDS
+   ══════════════════════════════════════ */
+.land-features {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 0 40px 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.land-feature-card {
+    padding: 24px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.025);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.land-feature-card:hover {
+    border-color: rgba(75, 110, 245, 0.25);
+    transform: translateY(-3px);
+}
+
+.land-feat-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(75, 110, 245, 0.2);
+    background: rgba(75, 110, 245, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4B6EF5;
+    margin-bottom: 14px;
+}
+
+.land-feat-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.land-feat-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.land-footer {
+    position: relative;
+    z-index: 2;
+    padding: 20px 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 0.2px;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 768px) {
+    .land-nav {
+        width: calc(100% - 24px);
+        top: 10px;
+        padding: 0 14px;
+    }
+
+    .land-nav-center {
+        display: none;
+    }
+
+    .land-hero {
+        padding: 120px 24px 70px;
+    }
+
+    .land-headline {
+        font-size: 38px;
+        letter-spacing: -1.5px;
+    }
+
+    .land-features {
+        grid-template-columns: 1fr;
+        padding: 0 24px 60px;
+    }
+
+    .float-pill {
+        display: none;
+    }
+}

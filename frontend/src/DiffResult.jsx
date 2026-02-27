@@ -1,98 +1,106 @@
 import React, { useState } from 'react';
-import ReactDiffViewer from 'react-diff-viewer-continued';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-python';
-import './index.css'; // Ensure styling is loaded
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { SplitSquareHorizontal, AlignJustify, Copy, Check } from 'lucide-react';
+
+/**
+ * Compute a simple line‐level diff:
+ * - lines only in old → removed (red)
+ * - lines only in new → added (green)
+ * - lines in both    → unchanged
+ */
+function computeLineDiff(oldCode, newCode) {
+  const oldLines = (oldCode || '').split('\n');
+  const newLines = (newCode || '').split('\n');
+  const maxLen = Math.max(oldLines.length, newLines.length);
+  const result = [];
+
+  for (let i = 0; i < maxLen; i++) {
+    const oldLine = i < oldLines.length ? oldLines[i] : null;
+    const newLine = i < newLines.length ? newLines[i] : null;
+
+    if (oldLine === newLine) {
+      result.push({ type: 'unchanged', lineNum: i + 1, text: oldLine });
+    } else {
+      if (oldLine !== null && oldLine !== undefined) {
+        result.push({ type: 'removed', lineNum: i + 1, text: oldLine });
+      }
+      if (newLine !== null && newLine !== undefined) {
+        result.push({ type: 'added', lineNum: i + 1, text: newLine });
+      }
+    }
+  }
+
+  return result;
+}
 
 const DiffResult = ({ oldCode, newCode }) => {
-  const [isSplitView, setIsSplitView] = useState(true);
+  const [copied, setCopied] = useState(false);
 
-  // Custom "Cyberpunk" Theme for the Diff Viewer
-  const newStyles = {
-    variables: {
-      dark: {
-        diffViewerBackground: '#0f1014', // Matches your app bg
-        diffViewerColor: '#FFF',
-        addedBackground: '#003300',      // Deep Green for additions
-        addedColor: '#00ff00',           // Bright Green text
-        removedBackground: '#330000',    // Deep Red for deletions
-        removedColor: '#ff0000',         // Bright Red text
-        wordAddedBackground: '#006600',
-        wordRemovedBackground: '#660000',
-        addedGutterBackground: '#002200',
-        removedGutterBackground: '#220000',
-        gutterBackground: '#0a0a0a',
-        gutterColor: '#4a4a4a',
-      }
-    },
-    line: {
-      padding: '10px 2px',
-      '&:hover': {
-        background: '#1a1b20',
-      },
-    },
+  const diff = computeLineDiff(oldCode, newCode);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(newCode || '');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="diff-container" style={{ 
-      marginTop: '20px', 
-      background: '#0f1014', 
-      borderRadius: '12px', 
-      border: '1px solid #333',
-      overflow: 'hidden',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
-    }}>
-      {/* 🎛️ Control Bar */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '15px 20px',
-        background: '#161b22',
-        borderBottom: '1px solid #333'
-      }}>
-        <h3 style={{ margin: 0, color: '#e6edf3', fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ height: '10px', width: '10px', background: '#ff4444', borderRadius: '50%', display: 'inline-block' }}></span>
+    <div className="diff-container">
+      {/* Header */}
+      <div className="diff-header">
+        <div className="diff-labels">
+          <span className="diff-dot red" />
           Vulnerable
-          <span style={{ color: '#555' }}>→</span>
-          <span style={{ height: '10px', width: '10px', background: '#00e676', borderRadius: '50%', display: 'inline-block' }}></span>
-          Secure Fix
-        </h3>
-
-        {/* View Toggle Button */}
-        <button 
-          onClick={() => setIsSplitView(!isSplitView)}
-          style={{
-            background: '#23272e',
-            color: '#fff',
-            border: '1px solid #444',
-            padding: '6px 12px',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => e.target.style.borderColor = '#007bff'}
-          onMouseOut={(e) => e.target.style.borderColor = '#444'}
-        >
-          {isSplitView ? 'View: Split ↔' : 'View: Unified 📜'}
+          <span className="diff-arrow">→</span>
+          <span className="diff-dot green" />
+          Secure
+        </div>
+        <button className="code-card-copy" onClick={handleCopy} title="Copy fixed code">
+          {copied ? <><Check size={13} /> Copied!</> : <><Copy size={13} /> Copy</>}
         </button>
       </div>
 
-      {/* 📊 The Diff Viewer */}
-      <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
-        <ReactDiffViewer
-          oldValue={oldCode}
-          newValue={newCode}
-          splitView={isSplitView}
-          renderContent={(str) => <pre style={{ margin: 0 }}>{str}</pre>}
-          useDarkTheme={true}
-          styles={newStyles}
-          disableWordDiff={true}
-          leftTitle="🔴 Current Code"
-          rightTitle="🟢 Secured Code"
-        />
+      {/* Diff body with red/green line highlights */}
+      <div className="diff-body">
+        <div className="diff-lines-wrapper">
+          {diff.map((line, i) => {
+            let bgColor = 'transparent';
+            let prefix = ' ';
+            let textColor = '#d4d4d8';
+            let gutterColor = '#3a3d4e';
+
+            if (line.type === 'removed') {
+              bgColor = 'rgba(239, 68, 68, 0.15)';
+              prefix = '−';
+              textColor = '#fca5a5';
+              gutterColor = '#ef4444';
+            } else if (line.type === 'added') {
+              bgColor = 'rgba(34, 197, 94, 0.15)';
+              prefix = '+';
+              textColor = '#86efac';
+              gutterColor = '#22c55e';
+            }
+
+            return (
+              <div
+                key={i}
+                className="diff-line"
+                style={{ background: bgColor }}
+              >
+                <span className="diff-line-gutter" style={{ color: gutterColor }}>
+                  {prefix}
+                </span>
+                <span className="diff-line-num" style={{ color: gutterColor }}>
+                  {line.lineNum}
+                </span>
+                <span className="diff-line-text" style={{ color: textColor }}>
+                  {line.text}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

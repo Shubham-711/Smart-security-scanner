@@ -11,7 +11,7 @@ from rich.syntax import Syntax
 
 # Initialize Rich Console for beautiful output
 console = Console()
-API_URL = "http://127.0.0.1:8000"
+API_URL = os.environ.get("SECURE_SCAN_API_URL", "http://127.0.0.1:8000")
 
 def scan_file(file_path):
     if not os.path.exists(file_path):

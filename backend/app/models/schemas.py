@@ -4,6 +4,7 @@ from typing import Optional, Any
 # What the user sends to us
 class ScanRequest(BaseModel):
     code: str
+    language: str = "python"
 
 # What we return to the user
 class ScanResponse(BaseModel):
