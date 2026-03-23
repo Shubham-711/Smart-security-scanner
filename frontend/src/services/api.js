@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+// Uses VITE_API_URL in production (set in Vercel dashboard).
+// Falls back to localhost for local dev.
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

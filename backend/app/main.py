@@ -1,3 +1,4 @@
+import os
 import json
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -7,21 +8,23 @@ from .api import routes
 
 load_dotenv()
 
-
-#Base.metadata.create_all(bind=engine)
+# Auto-create tables on startup (works for both SQLite dev + PostgreSQL prod)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Smart Security Scanner")
 
-# Allow Frontend to talk to Backend (CORS)
+# CORS — allow the Vercel frontend URL in prod, all origins in dev
+FRONTEND_URL = os.getenv("FRONTEND_URL", "*")
+origins = [FRONTEND_URL] if FRONTEND_URL != "*" else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, change this to your Vercel URL
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include the routes we just wrote
 app.include_router(routes.router)
 
 @app.get("/")
